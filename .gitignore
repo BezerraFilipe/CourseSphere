@@ -1,1 +1,16 @@
-.env
+# Rails
+backend/config/master.key
+backend/config/credentials.yml.enc
+backend/log/
+backend/tmp/
+backend/storage/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Ambiente
+**/.env
+
+# Sistema
+.DS_Store
