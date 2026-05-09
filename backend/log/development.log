@@ -52,3 +52,118 @@ FOREIGN KEY ("course_id")
   [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO "$user", public /*application='Backend'*/[0m
   [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='Backend'*/[0m
   [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO "$user", public /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'lucas@example.com' LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mUser Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'lucas@example.com' LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."auth_token" IS NULL LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mUser Create (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "auth_token", "created_at", "updated_at") VALUES ('Lucas', 'lucas@example.com', '$2a$12$goM30uA53XpMHMiqJtodfeNU/CFu/qVrf9LEad//UK0U4u7KB12q2', 'e30a0341d49bc726da91b448067c8308a2d1517b', '2026-05-09 17:52:17.355285', '2026-05-09 17:52:17.355285') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (1.7ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'filipe@example.com' LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'filipe@example.com' LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."auth_token" IS NULL LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "auth_token", "created_at", "updated_at") VALUES ('Filipe', 'filipe@example.com', '$2a$12$12q28gfVGyDtgjXr0ktoRu4IACoLZ.Rkbcpx4JBeGIdDjvy7Lsde.', 'd48527ab8ee3ab14d9a3ff5ed04a059d242b7404', '2026-05-09 17:52:17.528430', '2026-05-09 17:52:17.528430') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'barbara@example.com' LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'barbara@example.com' LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mUser Exists? (0.1ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."auth_token" IS NULL LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password_digest", "auth_token", "created_at", "updated_at") VALUES ('Barbara', 'barbara@example.com', '$2a$12$pWp4c84vZzUI2sqOJIcry.8FaA1wtJHzfieJ8yF82EaiLFWlpoUoO', 'e45a58c031c98b7ed72cd231de7fd5427edbf3f7', '2026-05-09 17:52:17.696606', '2026-05-09 17:52:17.696606') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."name" = 'Course 1 by Lucas' AND "courses"."creator_id" = 1 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mCourse Create (0.6ms)[0m  [1m[32mINSERT INTO "courses" ("name", "description", "start_date", "end_date", "creator_id", "created_at", "updated_at") VALUES ('Course 1 by Lucas', 'Description for Course 1', '2026-05-12', '2026-05-23', 1, '2026-05-09 17:52:17.711724', '2026-05-09 17:52:17.711724') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 1 for Course 1 by Lucas' AND "lessons"."course_id" = 1 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.2ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 1 for Course 1 by Lucas', 'https://example.com/video374', 'published', 1, '2026-05-09 17:52:17.720312', '2026-05-09 17:52:17.720312') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 2 for Course 1 by Lucas' AND "lessons"."course_id" = 1 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.7ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 2 for Course 1 by Lucas', 'https://example.com/video242', 'published', 1, '2026-05-09 17:52:17.722522', '2026-05-09 17:52:17.722522') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 3 for Course 1 by Lucas' AND "lessons"."course_id" = 1 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.6ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 3 for Course 1 by Lucas', 'https://example.com/video645', 'published', 1, '2026-05-09 17:52:17.725246', '2026-05-09 17:52:17.725246') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mCourse Load (0.1ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."name" = 'Course 2 by Lucas' AND "courses"."creator_id" = 1 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mCourse Create (0.6ms)[0m  [1m[32mINSERT INTO "courses" ("name", "description", "start_date", "end_date", "creator_id", "created_at", "updated_at") VALUES ('Course 2 by Lucas', 'Description for Course 2', '2026-05-15', '2026-05-21', 1, '2026-05-09 17:52:17.727585', '2026-05-09 17:52:17.727585') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 1 for Course 2 by Lucas' AND "lessons"."course_id" = 2 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.5ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 1 for Course 2 by Lucas', 'https://example.com/video147', 'draft', 2, '2026-05-09 17:52:17.729925', '2026-05-09 17:52:17.729925') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 2 for Course 2 by Lucas' AND "lessons"."course_id" = 2 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.6ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 2 for Course 2 by Lucas', 'https://example.com/video247', 'published', 2, '2026-05-09 17:52:17.732168', '2026-05-09 17:52:17.732168') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 3 for Course 2 by Lucas' AND "lessons"."course_id" = 2 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.6ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 3 for Course 2 by Lucas', 'https://example.com/video519', 'draft', 2, '2026-05-09 17:52:17.734397', '2026-05-09 17:52:17.734397') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mCourse Load (0.1ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."name" = 'Course 1 by Filipe' AND "courses"."creator_id" = 2 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mCourse Create (0.6ms)[0m  [1m[32mINSERT INTO "courses" ("name", "description", "start_date", "end_date", "creator_id", "created_at", "updated_at") VALUES ('Course 1 by Filipe', 'Description for Course 1', '2026-05-13', '2026-05-23', 2, '2026-05-09 17:52:17.736680', '2026-05-09 17:52:17.736680') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 1 for Course 1 by Filipe' AND "lessons"."course_id" = 3 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.5ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 1 for Course 1 by Filipe', 'https://example.com/video641', 'draft', 3, '2026-05-09 17:52:17.738902', '2026-05-09 17:52:17.738902') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 2 for Course 1 by Filipe' AND "lessons"."course_id" = 3 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.5ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 2 for Course 1 by Filipe', 'https://example.com/video515', 'published', 3, '2026-05-09 17:52:17.741116', '2026-05-09 17:52:17.741116') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 3 for Course 1 by Filipe' AND "lessons"."course_id" = 3 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.6ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 3 for Course 1 by Filipe', 'https://example.com/video647', 'published', 3, '2026-05-09 17:52:17.743163', '2026-05-09 17:52:17.743163') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mCourse Load (0.1ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."name" = 'Course 2 by Filipe' AND "courses"."creator_id" = 2 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mCourse Create (0.6ms)[0m  [1m[32mINSERT INTO "courses" ("name", "description", "start_date", "end_date", "creator_id", "created_at", "updated_at") VALUES ('Course 2 by Filipe', 'Description for Course 2', '2026-05-14', '2026-05-23', 2, '2026-05-09 17:52:17.745331', '2026-05-09 17:52:17.745331') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 1 for Course 2 by Filipe' AND "lessons"."course_id" = 4 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.6ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 1 for Course 2 by Filipe', 'https://example.com/video6', 'draft', 4, '2026-05-09 17:52:17.747643', '2026-05-09 17:52:17.747643') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 2 for Course 2 by Filipe' AND "lessons"."course_id" = 4 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.6ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 2 for Course 2 by Filipe', 'https://example.com/video585', 'draft', 4, '2026-05-09 17:52:17.749841', '2026-05-09 17:52:17.749841') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 3 for Course 2 by Filipe' AND "lessons"."course_id" = 4 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.6ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 3 for Course 2 by Filipe', 'https://example.com/video937', 'draft', 4, '2026-05-09 17:52:17.752277', '2026-05-09 17:52:17.752277') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mCourse Load (0.1ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."name" = 'Course 1 by Barbara' AND "courses"."creator_id" = 3 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mCourse Create (0.6ms)[0m  [1m[32mINSERT INTO "courses" ("name", "description", "start_date", "end_date", "creator_id", "created_at", "updated_at") VALUES ('Course 1 by Barbara', 'Description for Course 1', '2026-05-13', '2026-05-23', 3, '2026-05-09 17:52:17.754444', '2026-05-09 17:52:17.754444') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 1 for Course 1 by Barbara' AND "lessons"."course_id" = 5 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.5ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 1 for Course 1 by Barbara', 'https://example.com/video576', 'draft', 5, '2026-05-09 17:52:17.756749', '2026-05-09 17:52:17.756749') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 2 for Course 1 by Barbara' AND "lessons"."course_id" = 5 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.5ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 2 for Course 1 by Barbara', 'https://example.com/video738', 'published', 5, '2026-05-09 17:52:17.758892', '2026-05-09 17:52:17.758892') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 3 for Course 1 by Barbara' AND "lessons"."course_id" = 5 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.6ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 3 for Course 1 by Barbara', 'https://example.com/video521', 'published', 5, '2026-05-09 17:52:17.761093', '2026-05-09 17:52:17.761093') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mCourse Load (0.1ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."name" = 'Course 2 by Barbara' AND "courses"."creator_id" = 3 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mCourse Create (0.6ms)[0m  [1m[32mINSERT INTO "courses" ("name", "description", "start_date", "end_date", "creator_id", "created_at", "updated_at") VALUES ('Course 2 by Barbara', 'Description for Course 2', '2026-05-17', '2026-05-28', 3, '2026-05-09 17:52:17.763319', '2026-05-09 17:52:17.763319') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 1 for Course 2 by Barbara' AND "lessons"."course_id" = 6 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.6ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 1 for Course 2 by Barbara', 'https://example.com/video212', 'draft', 6, '2026-05-09 17:52:17.765665', '2026-05-09 17:52:17.765665') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 2 for Course 2 by Barbara' AND "lessons"."course_id" = 6 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.6ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 2 for Course 2 by Barbara', 'https://example.com/video147', 'draft', 6, '2026-05-09 17:52:17.767820', '2026-05-09 17:52:17.767820') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.1ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."title" = 'Lesson 3 for Course 2 by Barbara' AND "lessons"."course_id" = 6 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[36mLesson Create (0.5ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 3 for Course 2 by Barbara', 'https://example.com/video315', 'draft', 6, '2026-05-09 17:52:17.770040', '2026-05-09 17:52:17.770040') RETURNING "id" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
