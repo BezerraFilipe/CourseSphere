@@ -1,4 +1,6 @@
 class Course < ApplicationRecord
+  has_many :lessons, dependent: :destroy
+  
   belongs_to :creator, class_name: 'User'
   
   validates :name, presence: true, length: { minimum: 3 }

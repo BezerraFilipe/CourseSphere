@@ -34,3 +34,21 @@ FOREIGN KEY ("creator_id")
   [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO "$user", public /*application='Backend'*/[0m
   [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='Backend'*/[0m
   [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO "$user", public /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(737815420147457505) /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='Backend'*/[0m
+Migrating to CreateLessons (20260509145852)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
+  [1m[35m (4.4ms)[0m  [1m[35mCREATE TABLE "lessons" ("id" bigserial primary key, "title" character varying NOT NULL, "video_url" character varying, "status" character varying DEFAULT 'draft' NOT NULL, "course_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_4bcdb571d9"
+FOREIGN KEY ("course_id")
+  REFERENCES "courses" ("id")
+) /*application='Backend'*/[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE INDEX "index_lessons_on_course_id" ON "lessons" ("course_id") /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20260509145852') RETURNING "version" /*application='Backend'*/[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_advisory_unlock(737815420147457505) /*application='Backend'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Backend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='Backend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO "$user", public /*application='Backend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO public /*application='Backend'*/[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[35mSET search_path TO "$user", public /*application='Backend'*/[0m
