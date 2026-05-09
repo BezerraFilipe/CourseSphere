@@ -4,6 +4,7 @@ backend/config/credentials.yml.enc
 backend/log/
 backend/tmp/
 backend/storage/
+backend/log/*.log
 
 # Node
 frontend/node_modules/
@@ -14,3 +15,5 @@ frontend/dist/
 
 # Sistema
 .DS_Store
+
+
