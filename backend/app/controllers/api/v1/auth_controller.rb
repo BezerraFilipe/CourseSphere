@@ -1,6 +1,9 @@
 module Api
   module V1
     class AuthController < ApplicationController
+      
+      before_action :authenticate_user!, only: [:logout]
+      
       def register
         user = User.new( name: params[:name], email: params[:email], password: params[:password] )
 
@@ -23,6 +26,7 @@ module Api
       end
 
       def logout
+        current_user.update!(auth_token: nil)
         render json: { message: "Logged out successfully" }, status: :ok
       end
     end
