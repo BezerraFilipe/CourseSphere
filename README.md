@@ -79,3 +79,17 @@ A API estará disponível em `http://localhost:3000` e o frontend em `http://loc
 
 ---
 
+## Usuários de teste
+
+Após rodar `db:seed`, os seguintes usuários estarão disponíveis:
+
+| Nome    | E-mail                  | Senha       |
+|---------|-------------------------|-------------|
+| Lucas   | lucas@example.com       | password123 |
+| Filipe  | filipe@example.com      | password123 |
+| Barbara | barbara@example.com     | password123 |
+
+Cada usuário possui 2 cursos com 3 aulas cada.
+
+---
+

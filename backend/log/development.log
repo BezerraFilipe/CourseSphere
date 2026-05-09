@@ -167,3 +167,17 @@ FOREIGN KEY ("course_id")
   [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN /*application='Backend'*/[0m
   [1m[36mLesson Create (0.5ms)[0m  [1m[32mINSERT INTO "lessons" ("title", "video_url", "status", "course_id", "created_at", "updated_at") VALUES ('Lesson 3 for Course 2 by Barbara', 'https://example.com/video315', 'draft', 6, '2026-05-09 17:52:17.770040', '2026-05-09 17:52:17.770040') RETURNING "id" /*application='Backend'*/[0m
   [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT /*application='Backend'*/[0m
+  [1m[36mUser Count (22.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "users" /*application='Backend'*/[0m
+  [1m[36mCourse Count (1.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "courses" /*application='Backend'*/[0m
+  [1m[36mLesson Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "lessons" /*application='Backend'*/[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'lucas@example.com' LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mCourse Load (0.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."creator_id" = 1 /* loading for pp */ LIMIT 11 /*application='Backend'*/[0m
+  [1m[36mCourse Load (1.2ms)[0m  [1m[34mSELECT "courses".* FROM "courses" ORDER BY "courses"."id" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = 1 LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.6ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."course_id" = 1 /* loading for pp */ LIMIT 11 /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.9ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."course_id" = 1 AND "lessons"."status" = 'draft' /* loading for pp */ LIMIT 11 /*application='Backend'*/[0m
+  [1m[36mLesson Load (0.8ms)[0m  [1m[34mSELECT "lessons".* FROM "lessons" WHERE "lessons"."course_id" = 1 AND "lessons"."status" = 'published' /* loading for pp */ LIMIT 11 /*application='Backend'*/[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."name" = 'Barbara' LIMIT 1 /*application='Backend'*/[0m
+  [1m[36mCourse Load (0.7ms)[0m  [1m[34mSELECT "courses".* FROM "courses" WHERE "courses"."creator_id" = 3 /* loading for pp */ LIMIT 11 /*application='Backend'*/[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" LEFT OUTER JOIN "courses" ON "courses"."creator_id" = "users"."id" WHERE "courses"."id" IS NULL /* loading for pp */ LIMIT 11 /*application='Backend'*/[0m
