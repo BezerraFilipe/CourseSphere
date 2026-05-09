@@ -1,5 +1,5 @@
 # Create some users
-users = ["Lucas", "Filipe", "Barbara"].map do |name|
+users = ["Barbara", "Lucas", "Filipe"].map do |name|
   User.find_or_create_by(email: "#{name.downcase}@example.com") do |u|
     u.name = name
     u.password = "password123"
