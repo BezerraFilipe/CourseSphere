@@ -21,7 +21,7 @@ export default function Home() {
         <h1 className={styles.heroTitle}>Aprenda e ensine<br />sem limites</h1>
         <p className={styles.heroSubtitle}>
           Crie cursos, compartilhe conhecimento e aprenda com a comunidade.
-          Tudo em um só lugar.
+          
         </p>
         <div className={styles.heroActions}>
           <Link to="/register" className={styles.ctaPrimary}>Começar agora</Link>
@@ -29,26 +29,10 @@ export default function Home() {
         </div>
       </main>
 
-      <section className={styles.features}>
-        <div className={styles.feature}>
-          <div className={styles.featureIcon}>📚</div>
-          <h3>Crie seus cursos</h3>
-          <p>Organize aulas em cursos e compartilhe seu conhecimento com a comunidade.</p>
-        </div>
-        <div className={styles.feature}>
-          <div className={styles.featureIcon}>🎯</div>
-          <h3>Aprenda no seu ritmo</h3>
-          <p>Acesse cursos da comunidade e evolua no seu próprio tempo.</p>
-        </div>
-        <div className={styles.feature}>
-          <div className={styles.featureIcon}>🤝</div>
-          <h3>Colabore</h3>
-          <p>Reuse aulas de outros cursos e construa em cima do que já existe.</p>
-        </div>
-      </section>
+     
 
       <footer className={styles.footer}>
-        © 2026 CourseSphere. Feito com ♥
+         Filipe Bezerra Muniz da Silva | fbms@cin.ufpe.br
       </footer>
     </div>
   )
