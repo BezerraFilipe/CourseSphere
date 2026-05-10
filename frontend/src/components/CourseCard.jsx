@@ -16,6 +16,10 @@ export default function CourseCard({ course, editable = false, onEdit, onDelete 
     ? lessons
     : lessons.filter(l => l.status === statusFilter)
 
+  const visibleLessons = editable
+    ? filteredLessons
+    : filteredLessons.filter(l => l.status === 'published')
+
   async function handleToggle() {
     setExpanded(e => !e)
     if (!expanded) {
@@ -122,10 +126,10 @@ export default function CourseCard({ course, editable = false, onEdit, onDelete 
                     ))}
                   </div>
                 )}
-                {filteredLessons.length === 0 ? (
+                {visibleLessons.length === 0 ? (
                   <p className={styles.lessonsEmpty}>Nenhuma aula encontrada.</p>
                 ) : (
-                  filteredLessons.map(lesson => (
+                  visibleLessons.map(lesson => (
                     <a
                       key={lesson.id}
                       href={lesson.video_url || '#'}
