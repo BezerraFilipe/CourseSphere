@@ -25,12 +25,40 @@
   margin-bottom: 20px;
 }
 
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  color: var(--text-primary);
+  background: var(--bg);
+  font-family: var(--font);
+  cursor: pointer;
+}
+
+.select:focus {
+  border-color: var(--primary);
+  outline: none;
+}
+
 .actions {
   display: flex;
   gap: 10px;
   margin-top: 8px;
 }
 
-.actions > * {
-  flex: 1;
-}
+.actions > * { flex: 1; }

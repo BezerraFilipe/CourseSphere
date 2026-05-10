@@ -3,8 +3,13 @@ import FormField from './FormField'
 import Button from './Button'
 import styles from './LessonModal.module.css'
 
-export default function LessonModal({ onClose, onAdd }) {
-  const [form, setForm] = useState({ title: '', video_url: '' })
+export default function LessonModal({ onClose, onAdd, initialData = null }) {
+  const isEditing = !!initialData
+  const [form, setForm] = useState(
+    initialData
+      ? { title: initialData.title, video_url: initialData.video_url || '', status: initialData.status || 'draft' }
+      : { title: '', video_url: '', status: 'draft' }
+  )
   const [errors, setErrors] = useState({})
 
   function validate() {
@@ -18,14 +23,12 @@ export default function LessonModal({ onClose, onAdd }) {
     const e = validate()
     if (Object.keys(e).length) return setErrors(e)
     onAdd(form)
-    setForm({ title: '', video_url: '' })
-    setErrors({})
   }
 
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={e => e.stopPropagation()}>
-        <h3 className={styles.title}>Nova aula</h3>
+        <h3 className={styles.title}>{isEditing ? 'Editar aula' : 'Nova aula'}</h3>
         <FormField
           label="Título"
           type="text"
@@ -41,9 +44,22 @@ export default function LessonModal({ onClose, onAdd }) {
           value={form.video_url}
           onChange={e => setForm(f => ({ ...f, video_url: e.target.value }))}
         />
+        <div className={styles.field}>
+          <label className={styles.label}>Status</label>
+          <select
+            className={styles.select}
+            value={form.status}
+            onChange={e => setForm(f => ({ ...f, status: e.target.value }))}
+          >
+            <option value="draft">Rascunho</option>
+            <option value="published">Publicada</option>
+          </select>
+        </div>
         <div className={styles.actions}>
           <Button variant="secondary" type="button" onClick={onClose}>Cancelar</Button>
-          <Button type="button" onClick={handleAdd}>Adicionar</Button>
+          <Button type="button" onClick={handleAdd}>
+            {isEditing ? 'Salvar' : 'Adicionar'}
+          </Button>
         </div>
       </div>
     </div>
