@@ -4,7 +4,7 @@ backend/config/credentials.yml.enc
 backend/log/
 backend/tmp/
 backend/storage/
-backend/log/*.log
+backend/log/development.log
 
 # Node
 frontend/node_modules/
