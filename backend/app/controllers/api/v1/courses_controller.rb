@@ -2,13 +2,17 @@ class Api::V1::CoursesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_course, only: [:show, :update, :destroy]
 
+  # GET /api/v1/courses returns all courses (with creator information) or only those created by the current user if ?mine=true is passed
   def index
-  courses = params[:mine] == "true" ? current_user.created_courses : Course.all
-  render json: courses, status: :ok
+    courses = params[:mine] == "true" ? current_user.created_courses : Course.all
+    courses = courses.includes(:creator)
+    # Filter by name if search param is present (case-insensitive)
+    courses = courses.where("name ILIKE ?", "%#{params[:search]}%") if params[:search].present?
+    render json: courses.map { |c| course_json(c) }
   end
 
   def show
-    render json: { course: @course, lessons: @course.lessons }, status: :ok
+    render json: { course: course_json(@course), lessons: @course.lessons }
   end
 
   def create
@@ -52,5 +56,12 @@ class Api::V1::CoursesController < ApplicationController
 
   def course_params
     params.permit(:name, :description, :start_date, :end_date)
+  end
+
+  def course_json(course)
+    course.as_json.merge(
+      creator_name: course.creator.name,
+      creator_initial: course.creator.name[0].upcase
+    )
   end
 end
