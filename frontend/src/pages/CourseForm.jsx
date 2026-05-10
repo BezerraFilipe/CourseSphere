@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import AppLayout from '../components/AppLayout'
 import FormField from '../components/FormField'
@@ -25,6 +25,9 @@ export default function CourseForm() {
   const [lessons, setLessons] = useState([])
   const [allLessons, setAllLessons] = useState([])
   const [showLessonModal, setShowLessonModal] = useState(false)
+  const [editingLesson, setEditingLesson] = useState(null)
+
+  const originalLessonsRef = useRef([])
 
   useEffect(() => {
     async function load() {
@@ -42,6 +45,7 @@ export default function CourseForm() {
             end_date: c.end_date
           })
           setLessons(lessonsRes.data)
+          originalLessonsRef.current = lessonsRes.data
         }
 
         const myCoursesRes = await api.get('/courses?mine=true')
@@ -80,21 +84,38 @@ export default function CourseForm() {
     setApiError('')
     try {
       let courseId = id
+
       if (isEditing) {
         await api.put(`/courses/${id}`, form)
       } else {
         const res = await api.post('/courses', form)
         courseId = res.data.id
       }
-      await Promise.all(
-        lessons.map(l =>
-          api.post(`/courses/${courseId}/lessons`, {
+
+      const originalIds = originalLessonsRef.current.map(l => l.id)
+      const currentIds = lessons.filter(l => l.id).map(l => l.id)
+      const deletedIds = originalIds.filter(oid => !currentIds.includes(oid))
+
+      await Promise.all([
+        ...deletedIds.map(lid =>
+          api.delete(`/courses/${courseId}/lessons/${lid}`)
+        ),
+        ...lessons
+          .filter(l => l.id && !l._new)
+          .map(l => api.put(`/courses/${courseId}/lessons/${l.id}`, {
             title: l.title,
             video_url: l.video_url,
             status: l.status || 'draft'
-          })
-        )
-      )
+          })),
+        ...lessons
+          .filter(l => l._new || !l.id)
+          .map(l => api.post(`/courses/${courseId}/lessons`, {
+            title: l.title,
+            video_url: l.video_url,
+            status: l.status || 'draft'
+          }))
+      ])
+
       navigate('/my-courses')
     } catch (err) {
       const msg = err.response?.data?.errors?.join(', ') || 'Erro ao salvar curso'
@@ -110,12 +131,28 @@ export default function CourseForm() {
   }
 
   function handleAddLesson(lessonForm) {
-    setLessons(l => [...l, { ...lessonForm, status: 'draft', _new: true }])
+    setLessons(l => [...l, { ...lessonForm, _new: true }])
     setShowLessonModal(false)
   }
 
+  function handleEditLesson(index, data) {
+    setEditingLesson({ index, data })
+  }
+
+  function handleSaveLesson(lessonForm) {
+    setLessons(l => l.map((item, i) =>
+      i === editingLesson.index ? { ...item, ...lessonForm } : item
+    ))
+    setEditingLesson(null)
+  }
+
   function handleReuseLesson(lesson) {
-    setLessons(l => [...l, { title: lesson.title, video_url: lesson.video_url, status: lesson.status, _new: true }])
+    setLessons(l => [...l, {
+      title: lesson.title,
+      video_url: lesson.video_url,
+      status: lesson.status,
+      _new: true
+    }])
   }
 
   function handleRemoveLesson(index) {
@@ -145,7 +182,15 @@ export default function CourseForm() {
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>Informações do curso</h2>
-          <FormField label="Nome" type="text" name="name" placeholder="Nome do curso" value={form.name} onChange={handleChange} error={errors.name} />
+          <FormField
+            label="Nome"
+            type="text"
+            name="name"
+            placeholder="Nome do curso"
+            value={form.name}
+            onChange={handleChange}
+            error={errors.name}
+          />
           <div className={styles.field}>
             <label className={styles.label}>Descrição</label>
             <textarea
@@ -178,7 +223,11 @@ export default function CourseForm() {
             <LessonReuseBox allLessons={allLessons} onReuse={handleReuseLesson} />
           )}
 
-          <LessonList lessons={lessons} onRemove={handleRemoveLesson} />
+          <LessonList
+            lessons={lessons}
+            onRemove={handleRemoveLesson}
+            onEdit={handleEditLesson}
+          />
         </div>
 
         {apiError && <p className={styles.apiError}>{apiError}</p>}
@@ -191,6 +240,14 @@ export default function CourseForm() {
         <LessonModal
           onClose={() => setShowLessonModal(false)}
           onAdd={handleAddLesson}
+        />
+      )}
+
+      {editingLesson && (
+        <LessonModal
+          initialData={editingLesson.data}
+          onClose={() => setEditingLesson(null)}
+          onAdd={handleSaveLesson}
         />
       )}
     </AppLayout>
