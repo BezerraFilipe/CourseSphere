@@ -3,6 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom'
 import AppLayout from '../components/AppLayout'
 import FormField from '../components/FormField'
 import Button from '../components/Button'
+import LessonModal from '../components/LessonModal'
+import LessonReuseBox from '../components/LessonReuseBox'
+import LessonList from '../components/LessonList'
 import api from '../services/api'
 import styles from './CourseForm.module.css'
 
@@ -20,11 +23,8 @@ export default function CourseForm() {
   const [apiError, setApiError] = useState('')
 
   const [lessons, setLessons] = useState([])
-  const [lessonSearch, setLessonSearch] = useState('')
   const [allLessons, setAllLessons] = useState([])
   const [showLessonModal, setShowLessonModal] = useState(false)
-  const [lessonForm, setLessonForm] = useState({ title: '', video_url: '' })
-  const [lessonErrors, setLessonErrors] = useState({})
 
   useEffect(() => {
     async function load() {
@@ -109,19 +109,8 @@ export default function CourseForm() {
     setErrors(e2 => ({ ...e2, [e.target.name]: '' }))
   }
 
-  function validateLesson() {
-    const e = {}
-    if (!lessonForm.title) e.title = 'Título obrigatório'
-    else if (lessonForm.title.length < 3) e.title = 'Mínimo 3 caracteres'
-    return e
-  }
-
-  function handleAddLesson() {
-    const e = validateLesson()
-    if (Object.keys(e).length) return setLessonErrors(e)
+  function handleAddLesson(lessonForm) {
     setLessons(l => [...l, { ...lessonForm, status: 'draft', _new: true }])
-    setLessonForm({ title: '', video_url: '' })
-    setLessonErrors({})
     setShowLessonModal(false)
   }
 
@@ -132,10 +121,6 @@ export default function CourseForm() {
   function handleRemoveLesson(index) {
     setLessons(l => l.filter((_, i) => i !== index))
   }
-
-  const filteredAllLessons = allLessons.filter(l =>
-    l.title.toLowerCase().includes(lessonSearch.toLowerCase())
-  )
 
   if (loadingData) {
     return (
@@ -190,54 +175,10 @@ export default function CourseForm() {
           </div>
 
           {allLessons.length > 0 && (
-            <div className={styles.reuseBox}>
-              <p className={styles.reuseLabel}>Reaproveitar aula existente</p>
-              <div className={styles.searchBox}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                </svg>
-                <input
-                  className={styles.searchInput}
-                  placeholder="Buscar aula..."
-                  value={lessonSearch}
-                  onChange={e => setLessonSearch(e.target.value)}
-                />
-              </div>
-              {lessonSearch && (
-                <div className={styles.reuseList}>
-                  {filteredAllLessons.map((l, i) => (
-                    <button key={i} type="button" className={styles.reuseItem} onClick={() => handleReuseLesson(l)}>
-                      <span className={styles.reuseTitle}>{l.title}</span>
-                      <span className={styles.reuseAction}>+ Adicionar</span>
-                    </button>
-                  ))}
-                  {filteredAllLessons.length === 0 && (
-                    <p className={styles.reuseEmpty}>Nenhuma aula encontrada.</p>
-                  )}
-                </div>
-              )}
-            </div>
+            <LessonReuseBox allLessons={allLessons} onReuse={handleReuseLesson} />
           )}
 
-          <div className={styles.lessonList}>
-            {lessons.length === 0 ? (
-              <p className={styles.lessonsEmpty}>Nenhuma aula adicionada ainda.</p>
-            ) : (
-              lessons.map((l, i) => (
-                <div key={i} className={styles.lessonItem}>
-                  <div className={styles.lessonInfo}>
-                    <span className={styles.lessonTitle}>{l.title}</span>
-                    {l.video_url && <span className={styles.lessonUrl}>{l.video_url}</span>}
-                  </div>
-                  <button type="button" className={styles.removeLesson} onClick={() => handleRemoveLesson(i)}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-                    </svg>
-                  </button>
-                </div>
-              ))
-            )}
-          </div>
+          <LessonList lessons={lessons} onRemove={handleRemoveLesson} />
         </div>
 
         {apiError && <p className={styles.apiError}>{apiError}</p>}
@@ -247,30 +188,10 @@ export default function CourseForm() {
       </form>
 
       {showLessonModal && (
-        <div className={styles.modalOverlay} onClick={() => setShowLessonModal(false)}>
-          <div className={styles.modal} onClick={e => e.stopPropagation()}>
-            <h3 className={styles.modalTitle}>Nova aula</h3>
-            <FormField
-              label="Título"
-              type="text"
-              placeholder="Título da aula"
-              value={lessonForm.title}
-              onChange={e => { setLessonForm(f => ({ ...f, title: e.target.value })); setLessonErrors(e2 => ({ ...e2, title: '' })) }}
-              error={lessonErrors.title}
-            />
-            <FormField
-              label="URL do vídeo (opcional)"
-              type="url"
-              placeholder="https://..."
-              value={lessonForm.video_url}
-              onChange={e => setLessonForm(f => ({ ...f, video_url: e.target.value }))}
-            />
-            <div className={styles.modalActions}>
-              <Button variant="secondary" type="button" onClick={() => setShowLessonModal(false)}>Cancelar</Button>
-              <Button type="button" onClick={handleAddLesson}>Adicionar</Button>
-            </div>
-          </div>
-        </div>
+        <LessonModal
+          onClose={() => setShowLessonModal(false)}
+          onAdd={handleAddLesson}
+        />
       )}
     </AppLayout>
   )
