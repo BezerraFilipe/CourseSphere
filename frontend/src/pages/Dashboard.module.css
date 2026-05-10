@@ -112,6 +112,79 @@
 
 .chevronOpen { transform: rotate(180deg); }
 
+.details {
+  border-top: 1px solid var(--border);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--primary-light);
+}
+
+.detailsTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+
+.detailsDesc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.detailsDates {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.detailsDates strong {
+  color: var(--text-primary);
+}
+
+.instructor {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.instructorAvatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.instructorInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.instructorLabel {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.instructorName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
 .lessons {
   border-top: 1px solid var(--border);
   padding: 8px 0;
